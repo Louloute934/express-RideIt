@@ -19,29 +19,6 @@ require("dotenv").config();
 
 //MailGun
 
-const api_key = process.env.MAILGUN_API_KEY;
-const domain = process.env.MAILGUN_DOMAIN;
-const mailgun = require("mailgun-js")({ apiKey: api_key, domain: domain });
-
-//CONTACT FORM+++++++======================================+>>>>
-
-router.post("/user/contact", isAuthenticated, async (req, res) => {
-  const { sender, senderEmail, senderText, beginDate, endDate } = req.fields;
-  const data = {
-    from: `${sender} <${senderEmail}>`,
-    to: "lorris.mascarin@gmail.com" /* EMAIL AVEC LAQUELLE VOUS VOUS ÊTES ENREGISTRÉS SUR MAILGUN */,
-    beginDate: beginDate,
-    endDate: endDate,
-    senderText: senderText,
-  };
-  mailgun.messages().send(data, (error, body) => {
-    if (!error) {
-      return res.json(body);
-    }
-    res.status(401).json(error);
-  });
-});
-
 //USER SIGNUP==================+++++++++++++>>>>>>>>>>>>>>>>>
 
 router.post("/user/signup", async (req, res) => {
