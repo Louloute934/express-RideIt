@@ -7,7 +7,7 @@ app.use(formidable());
 app.use(cors());
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/RideIt", {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
