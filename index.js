@@ -20,7 +20,7 @@ const offerRoutes = require("./route/offer");
 app.use(offerRoutes);
 
 app.all("*", (req, res) => {
-  res.status(400).json({ error: error.message });
+  res.status(400).json({ "coucou" });
 });
 
 app.listen(process.env.PORT, () => {
