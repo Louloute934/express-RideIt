@@ -27,24 +27,20 @@ router.post("/user/signup", async (req, res) => {
     const token = uid2(64);
     const user = await User.findOne({ email: req.fields.email });
     if (!user) {
-      if (req.fields.username && req.fields.email) {
-        const newUser = new User({
-          email: req.fields.email,
-          username: req.fields.username,
-          token: token,
-          hash: SHA256(req.fields.password + salt).toString(encBase64),
-          salt: salt,
-        });
-        await newUser.save();
+      const newUser = new User({
+        email: req.fields.email,
+        username: req.fields.username,
+        token: token,
+        hash: SHA256(req.fields.password + salt).toString(encBase64),
+        salt: salt,
+      });
+      await newUser.save();
 
-        res.json({
-          _id: newUser.id,
-          token: newUser.token,
-          username: newUser.username,
-        });
-      } else {
-        res.json("All fields must be fill");
-      }
+      res.json({
+        _id: newUser.id,
+        token: newUser.token,
+        username: newUser.username,
+      });
     } else {
       res.status(400).json("Email already used with an existing account");
     }
